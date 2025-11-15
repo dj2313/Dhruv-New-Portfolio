@@ -1,7 +1,4 @@
-import React from "react";
 import {
-  Code,
-  Smartphone,
   Database,
   Palette,
   BarChart,

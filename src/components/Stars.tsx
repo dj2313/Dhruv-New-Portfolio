@@ -8,7 +8,7 @@ const Stars = () => {
   const ref = useRef<any>(null);
   const [sphere] = useState(() => new Float32Array(inSphere(new Float32Array(5000), { radius: 1.2 })));
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (ref.current) {
       ref.current.rotation.x -= delta / 100;
       ref.current.rotation.y -= delta / 125;
