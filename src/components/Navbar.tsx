@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Menu, Home, Briefcase, Mail, User, Code } from "lucide-react";
+import { Menu, Home, Briefcase, Mail, User, Code, Layers } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { ThemeToggle } from "./ThemeToggle";
@@ -18,28 +18,33 @@ interface ModernNavbarProps {
     href: string;
   };
   className?: string;
+  activeSection?: string;
+  onNavigate?: (href: string) => void;
 }
 
 export const ModernNavbar: React.FC<ModernNavbarProps> = ({
   items = [
     { name: "Home", href: "#home", icon: Home },
     { name: "About", href: "#about", icon: User },
+    { name: "Skills", href: "#skills", icon: Layers },
     { name: "Projects", href: "#projects", icon: Briefcase },
     { name: "Contact", href: "#contact", icon: Mail },
   ],
   logo = { text: "Dhruv Trivedi's Portfolio", href: "#home" },
   className = "",
+  activeSection = "Home",
+  onNavigate,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("Home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
 
-  const navHeight = useTransform(scrollY, [0, 100], [80, 60]);
-  const navPadding = useTransform(scrollY, [0, 100], [24, 16]);
-  const logoSize = useTransform(scrollY, [0, 100], [1, 0.85]);
-  const navOpacity = useTransform(scrollY, [0, 50], [0.8, 0.95]);
+  const navHeight = useTransform(scrollY, [0, 100], [80, 56]);
+  const navPadding = useTransform(scrollY, [0, 100], [24, 12]);
+  const logoSize = useTransform(scrollY, [0, 100], [1, 0.8]);
+  const navOpacity = useTransform(scrollY, [0, 50], [0.92, 0.96]);
+  const navBlur = useTransform(scrollY, [0, 50], [12, 16]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,13 +55,44 @@ export const ModernNavbar: React.FC<ModernNavbarProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
+  const scrollToSection = useCallback((href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setMobileMenuOpen(false);
     }
-  };
+  }, []);
+
+  const handleLogoClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      if (onNavigate) {
+        onNavigate(href);
+      } else {
+        scrollToSection(href);
+      }
+    },
+    [onNavigate, scrollToSection]
+  );
+
+  const handleNavItemClick = useCallback(
+    (href: string) => {
+      if (onNavigate) {
+        onNavigate(href);
+      } else {
+        scrollToSection(href);
+      }
+    },
+    [onNavigate, scrollToSection]
+  );
+
+  const handleMobileNavItemClick = useCallback(
+    (href: string) => {
+      handleNavItemClick(href);
+      setMobileMenuOpen(false);
+    },
+    [handleNavItemClick]
+  );
 
   return (
     <motion.nav
@@ -69,58 +105,53 @@ export const ModernNavbar: React.FC<ModernNavbarProps> = ({
       className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 ${className}`}
     >
       <motion.div
-        style={{ opacity: navOpacity }}
-        className={`h-full mx-auto max-w-7xl backdrop-blur-md bg-background/80 dark:bg-gray-900/80 border border-border rounded-full shadow-lg transition-all duration-300 ${
-          isScrolled ? "shadow-xl" : ""
-        }`}
+        style={{
+          opacity: navOpacity,
+        }}
+        className={`h-full mx-auto max-w-7xl backdrop-blur-xl bg-white/80 dark:bg-black/70 text-gray-900 dark:text-white border border-gray-200/50 dark:border-white/10 rounded-2xl shadow-lg transition-all duration-300 ${isScrolled ? "shadow-xl shadow-black/20 dark:shadow-black/40" : ""
+          }`}
       >
         <div className="h-full flex items-center justify-between px-6">
           <motion.a
             href={logo.href}
             style={{ scale: logoSize }}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection(logo.href);
-            }}
-            className="flex items-center space-x-2 font-bold text-xl text-foreground"
+            onClick={(e) => handleLogoClick(e, logo.href)}
+            className="flex items-center space-x-2 font-bold text-xl"
+            aria-label="Go to home"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
-              <Code className="text-white text-sm" size={16} />
+            <div className="w-10 h-10 bg-gradient-to-br from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 rounded-xl flex items-center justify-center shadow-md">
+              <Code className="text-white dark:text-black text-sm" size={20} />
             </div>
-            <span className="hidden sm:inline bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="hidden sm:inline font-bold text-xl">
               {logo.text}
             </span>
           </motion.a>
 
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-2">
             {items.map((item) => {
               const Icon = item.icon;
               const isActive = activeSection === item.name;
               return (
                 <motion.button
                   key={item.name}
-                  onClick={() => {
-                    setActiveSection(item.name);
-                    scrollToSection(item.href);
-                  }}
-                  className="relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
+                  onClick={() => handleNavItemClick(item.href)}
+                  className="relative px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-200"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <span
-                    className={`relative z-10 flex items-center gap-2 ${
-                      isActive
-                        ? "text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
+                    className={`relative z-10 flex items-center gap-2 ${isActive
+                        ? "text-white dark:text-black"
+                        : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                      }`}
                   >
-                    <Icon size={16} />
+                    <Icon size={18} />
                     <span>{item.name}</span>
                   </span>
                   {isActive && (
                     <motion.div
                       layoutId="navbar-indicator"
-                      className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full"
+                      className="absolute inset-0 bg-gray-900 dark:bg-white rounded-xl shadow-md"
                       initial={false}
                       transition={{
                         type: "spring",
@@ -132,33 +163,29 @@ export const ModernNavbar: React.FC<ModernNavbarProps> = ({
                 </motion.button>
               );
             })}
-            <div className="ml-4">
+            <div className="ml-2">
               <ThemeToggle />
             </div>
           </div>
 
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden rounded-full">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="md:hidden rounded-xl" aria-label="Open menu">
+                <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
+            <SheetContent side="right" className="w-[300px] rounded-l-2xl border-l border-border">
               <div className="flex flex-col space-y-4 mt-8">
                 {items.map((item) => {
                   const Icon = item.icon;
                   return (
                     <button
                       key={item.name}
-                      onClick={() => {
-                        setActiveSection(item.name);
-                        scrollToSection(item.href);
-                      }}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                        activeSection === item.name
-                          ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                          : "text-muted-foreground hover:bg-muted"
-                      }`}
+                      onClick={() => handleMobileNavItemClick(item.href)}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-colors ${activeSection === item.name
+                          ? "bg-gray-900 dark:bg-white text-white dark:text-black shadow-md"
+                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10"
+                        }`}
                     >
                       <Icon size={20} />
                       <span className="font-medium">{item.name}</span>
@@ -179,4 +206,3 @@ export const ModernNavbar: React.FC<ModernNavbarProps> = ({
     </motion.nav>
   );
 };
-

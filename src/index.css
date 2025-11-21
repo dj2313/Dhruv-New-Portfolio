@@ -94,6 +94,39 @@
 
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Enhanced typography scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  --font-size-7xl: 4.5rem;
+  --font-size-8xl: 6rem;
+  --font-size-9xl: 8rem;
+
+  /* Font weights */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Letter spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
 }
 
 
@@ -101,71 +134,59 @@
 /* Light theme variables */
 
 :root {
-
   --radius: 0.625rem;
 
+  /* Refined background colors */
   --background: oklch(1 0 0);
-
   --foreground: oklch(0.145 0 0);
-
+  
+  /* Enhanced card colors with subtle gradients */
   --card: oklch(1 0 0);
-
   --card-foreground: oklch(0.145 0 0);
-
+  
   --popover: oklch(1 0 0);
-
   --popover-foreground: oklch(0.145 0 0);
-
-  --primary: oklch(0.205 0 0);
-
+  
+  /* Refined primary colors with better contrast */
+  --primary: oklch(0.721 0.17 257.8); /* Vibrant blue */
   --primary-foreground: oklch(0.985 0 0);
-
-  --secondary: oklch(0.97 0 0);
-
+  
+  /* Secondary colors with more sophistication */
+  --secondary: oklch(0.92 0.02 257.8); /* Light blue-gray */
   --secondary-foreground: oklch(0.205 0 0);
-
+  
+  /* Muted colors for subtle UI elements */
   --muted: oklch(0.97 0 0);
-
   --muted-foreground: oklch(0.556 0 0);
-
-  --accent: oklch(0.97 0 0);
-
+  
+  /* Accent colors with better harmony */
+  --accent: oklch(0.85 0.05 257.8); /* Soft blue */
   --accent-foreground: oklch(0.205 0 0);
-
+  
+  /* Destructive colors */
   --destructive: oklch(0.577 0.245 27.325);
-
+  
+  /* Border and input colors */
   --border: oklch(0.922 0 0);
-
   --input: oklch(0.922 0 0);
-
   --ring: oklch(0.708 0 0);
-
+  
+  /* Chart colors */
   --chart-1: oklch(0.646 0.222 41.116);
-
   --chart-2: oklch(0.6 0.118 184.704);
-
   --chart-3: oklch(0.398 0.07 227.392);
-
   --chart-4: oklch(0.828 0.189 84.429);
-
   --chart-5: oklch(0.769 0.188 70.08);
-
+  
+  /* Sidebar colors */
   --sidebar: oklch(0.985 0 0);
-
   --sidebar-foreground: oklch(0.145 0 0);
-
   --sidebar-primary: oklch(0.205 0 0);
-
   --sidebar-primary-foreground: oklch(0.985 0 0);
-
   --sidebar-accent: oklch(0.97 0 0);
-
   --sidebar-accent-foreground: oklch(0.205 0 0);
-
   --sidebar-border: oklch(0.922 0 0);
-
   --sidebar-ring: oklch(0.708 0 0);
-
 }
 
 
@@ -173,69 +194,57 @@
 /* Dark theme variables */
 
 .dark {
-
-  --background: oklch(0.145 0 0);
-
+  /* Dark background with depth */
+  --background: oklch(0.12 0.01 257.8); /* Deep dark blue-gray */
   --foreground: oklch(0.985 0 0);
-
-  --card: oklch(0.205 0 0);
-
+  
+  /* Card with subtle texture */
+  --card: oklch(0.18 0.01 257.8); /* Slightly lighter dark blue-gray */
   --card-foreground: oklch(0.985 0 0);
-
+  
   --popover: oklch(0.205 0 0);
-
   --popover-foreground: oklch(0.985 0 0);
-
-  --primary: oklch(0.922 0 0);
-
-  --primary-foreground: oklch(0.205 0 0);
-
-  --secondary: oklch(0.269 0 0);
-
+  
+  /* Primary colors for dark mode */
+  --primary: oklch(0.721 0.17 257.8); /* Vibrant blue */
+  --primary-foreground: oklch(0.12 0.01 257.8);
+  
+  /* Secondary colors */
+  --secondary: oklch(0.25 0.02 257.8); /* Dark blue-gray */
   --secondary-foreground: oklch(0.985 0 0);
-
+  
+  /* Muted colors */
   --muted: oklch(0.269 0 0);
-
   --muted-foreground: oklch(0.708 0 0);
-
-  --accent: oklch(0.269 0 0);
-
+  
+  /* Accent colors */
+  --accent: oklch(0.30 0.03 257.8); /* Medium blue-gray */
   --accent-foreground: oklch(0.985 0 0);
-
+  
+  /* Destructive colors */
   --destructive: oklch(0.704 0.191 22.216);
-
-  --border: oklch(1 0 0 / 10%);
-
-  --input: oklch(1 0 0 / 15%);
-
+  
+  /* Border and input colors */
+  --border: oklch(0.22 0.01 257.8); /* Subtle border */
+  --input: oklch(0.22 0.01 257.8);
   --ring: oklch(0.556 0 0);
-
+  
+  /* Chart colors */
   --chart-1: oklch(0.488 0.243 264.376);
-
   --chart-2: oklch(0.696 0.17 162.48);
-
   --chart-3: oklch(0.769 0.188 70.08);
-
   --chart-4: oklch(0.627 0.265 303.9);
-
   --chart-5: oklch(0.645 0.246 16.439);
-
+  
+  /* Sidebar colors */
   --sidebar: oklch(0.205 0 0);
-
   --sidebar-foreground: oklch(0.985 0 0);
-
   --sidebar-primary: oklch(0.488 0.243 264.376);
-
   --sidebar-primary-foreground: oklch(0.985 0 0);
-
   --sidebar-accent: oklch(0.269 0 0);
-
   --sidebar-accent-foreground: oklch(0.985 0 0);
-
-  --sidebar-border: oklch(1 0 0 / 10%);
-
+  --sidebar-border: oklch(0.22 0.01 257.8);
   --sidebar-ring: oklch(0.556 0 0);
-
 }
 
 
@@ -249,12 +258,62 @@
     @apply border-border outline-ring/50;
 
   }
-
-  body {
-
-    @apply bg-background text-foreground;
-
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Performance optimizations */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Enhanced heading styles */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+  
+  h5 {
+    @apply text-lg md:text-xl lg:text-2xl;
+  }
+  
+  h6 {
+    @apply text-base md:text-lg lg:text-xl;
+  }
+  
+  /* Performance hints for animations */
+  [class*="motion"] {
+    will-change: transform, opacity;
+  }
+  
+  /* Smooth transforms */
+  img, video {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }
 
