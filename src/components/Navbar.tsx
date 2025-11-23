@@ -44,7 +44,6 @@ export const ModernNavbar: React.FC<ModernNavbarProps> = ({
   const navPadding = useTransform(scrollY, [0, 100], [24, 12]);
   const logoSize = useTransform(scrollY, [0, 100], [1, 0.8]);
   const navOpacity = useTransform(scrollY, [0, 50], [0.92, 0.96]);
-  const navBlur = useTransform(scrollY, [0, 50], [12, 16]);
 
   useEffect(() => {
     const handleScroll = () => {

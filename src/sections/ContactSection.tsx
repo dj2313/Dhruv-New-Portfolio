@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FormEvent } from "react";
 import { Button } from "../components/ui/button";
-import { Mail, MapPin, Send, CheckCircle2, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, MapPin, Send, CheckCircle2, Github, Linkedin } from "lucide-react";
 
 interface ContactSectionProps {
   formData: { name: string; email: string; message: string };

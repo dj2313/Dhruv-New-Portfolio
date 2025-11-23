@@ -1,7 +1,7 @@
 import { MotionValue, motion } from "framer-motion";
 import { AnimatedTextCycle } from "../components/AnimatedTextCycle";
 import { Button } from "../components/ui/button";
-import { Rocket, Mail, Download, Github, Linkedin, Twitter } from "lucide-react";
+import { Rocket, Mail, Download, Github, Linkedin } from "lucide-react";
 
 interface HeroSectionProps {
   heroOpacity: MotionValue<number>;
